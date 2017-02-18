@@ -21,7 +21,7 @@ def getNpmVer() {
 def incNpmVer(String sshAgentName) {
   def newVersion
   sshagent([sshAgentName]) {
-    def newTag = (sh (returnStdout: true, script: "npm version patch")).trim()
+    def newTag = (sh (returnStdout: true, script: "npm version patch -f")).trim()
     sh "git push origin ${newTag}"
     return newTag
   }

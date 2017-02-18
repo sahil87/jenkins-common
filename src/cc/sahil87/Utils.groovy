@@ -30,7 +30,7 @@ def incNpmVer(String sshAgentName) {
 def pushTag(String releaseVersion, String sshAgentName) {
   sshagent([sshAgentName]) {
     sh "git tag -fa v${releaseVersion} -m 'Release version ${releaseVersion}'"
-    sh "git push origin v${releaseVersion}"
+    sh "git push origin b-${releaseVersion}"
   }
 }
 

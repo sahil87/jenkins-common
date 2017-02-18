@@ -18,6 +18,10 @@ def getNpmVer() {
   return (sh (returnStdout: true, script: "node -e \"console.log(require('./package.json').version)\"")).trim()
 }
 
-def incNpmVer() {
-  return (sh (returnStdout: true, script: "npm version patch")).trim()
+def incNpmVer(sshAgentName) {
+  def newVersion
+  sshagent([sshAgentName]) {
+    newVersion = (sh (returnStdout: true, script: "npm version patch")).trim()
+  }
+  return newVersion
 }

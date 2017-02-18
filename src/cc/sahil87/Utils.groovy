@@ -24,3 +24,9 @@ def incNpmVer(sshAgentName) {
     return (sh (returnStdout: true, script: "npm version patch")).trim()
   }
 }
+
+def configureGit(userName, userEmail) {
+  sh("git config push.default simple")
+  sh("git config user.name ${userName}")
+  sh("git config user.email ${userEmail}")
+}

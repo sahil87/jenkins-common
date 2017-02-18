@@ -18,10 +18,19 @@ def getNpmVer() {
   return (sh (returnStdout: true, script: "node -e \"console.log(require('./package.json').version)\"")).trim()
 }
 
-def incNpmVer(sshAgentName) {
+def incNpmVer(String sshAgentName) {
   def newVersion
   sshagent([sshAgentName]) {
-    return (sh (returnStdout: true, script: "npm version patch")).trim()
+    def newTag = (sh (returnStdout: true, script: "npm version patch")).trim()
+    sh "git push origin ${newTag}"
+    return newTag
+  }
+}
+
+def pushTag(String releaseVersion, String sshAgentName) {
+  sshagent([sshAgentName]) {
+    sh "git tag -fa v${releaseVersion} -m 'Release version ${releaseVersion}'"
+    sh "git push origin v${releaseVersion}"
   }
 }
 

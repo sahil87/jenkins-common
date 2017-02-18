@@ -32,7 +32,7 @@ def pushTag(String releaseVersion, String sshAgentName) {
   sshagent([sshAgentName]) {
     sh "git tag -fa ${tag} -m 'Release version ${tag}'"
     sh "git push origin master"
-    sh "git push origin ${tag}"
+    sh "git push origin -f ${tag}"
   }
 }
 

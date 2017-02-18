@@ -22,13 +22,15 @@ def incNpmVer(String sshAgentName) {
   def newVersion
   sshagent([sshAgentName]) {
     def newTag = (sh (returnStdout: true, script: "npm --no-git-tag-version version patch")).trim()
-    sh "git add package.json; git commit -m \"${newTag}\"; git push -f origin ${newTag}"
+    sh "git add package.json"
+    sh "git commit -m \"${newTag}\""
+    pushTag(newTag, sshAgentName)
     return newTag
   }
 }
 
 def pushTag(String releaseVersion, String sshAgentName) {
-  def tag = 'b-' + releaseVersion
+  def tag = releaseVersion
   sshagent([sshAgentName]) {
     sh "git tag -fa ${tag} -m 'Release version ${tag}'"
     sh "git push origin HEAD:master"

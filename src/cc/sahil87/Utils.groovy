@@ -6,7 +6,7 @@ def pushTag(String releaseVersion){
   sh "git push origin v${releaseVersion}"
 }
 
-def checkUtilsPresent() {
+def pingUtils() {
   echo "Present in utils"
 }
 

@@ -13,3 +13,11 @@ def pingUtils() {
 def printEnvVars() {
   echo sh(returnStdout: true, script: 'env')
 }
+
+def getNpmVer() {
+  return (sh (returnStdout: true, script: "node -e \"console.log(require('./package.json').version)\"")).trim()
+}
+
+def incNpmVer() {
+  return (sh (returnStdout: true, script: "npm version patch")).trim()
+}

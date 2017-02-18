@@ -9,3 +9,7 @@ def pushTag(String releaseVersion){
 def checkUtilsPresent() {
   echo "Present in utils"
 }
+
+def printEnvVars() {
+  echo sh(returnStdout: true, script: 'env')
+}

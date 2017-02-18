@@ -21,7 +21,6 @@ def getNpmVer() {
 def incNpmVer(sshAgentName) {
   def newVersion
   sshagent([sshAgentName]) {
-    newVersion = (sh (returnStdout: true, script: "npm version patch")).trim()
+    return (sh (returnStdout: true, script: "npm version patch")).trim()
   }
-  return newVersion
 }
